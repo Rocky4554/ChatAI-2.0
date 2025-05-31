@@ -7,7 +7,9 @@ export default defineConfig({
   server: {
     headers: {
       "Cross-Origin-Embedder-Policy": "require-corp",
-      "Cross-Origin-Opener-Policy": "same-origin"
+      "Cross-Origin-Opener-Policy": "same-origin"// by setting this headers we are not allowing the browser to load any 
+      // cross-origin resources that are not explicitly allowed that is why we are using unpkg.com as a proxy
+      // this is required for the worker to work properly
     },
     proxy: {
       '/cdn': {

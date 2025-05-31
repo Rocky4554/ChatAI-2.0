@@ -297,20 +297,20 @@ const Project = () => {
                                 ))
                             }
                         </div>
-
+                            {/* the run button */}
                         <div className="actions flex gap-2">
                             <button
                                 onClick={async () => {
                                     await webContainer.mount(fileTree)
 
 
-                                    const installProcess = await webContainer.spawn("npm", [ "install" ])
+                                    const installProcess = await webContainer?.spawn("npm", [ "install" ])
 
 
 
                                     installProcess.output.pipeTo(new WritableStream({
                                         write(chunk) {
-                                            console.log(chunk)
+                                            console.log("the chunk :",chunk)
                                         }
                                     }))
 
