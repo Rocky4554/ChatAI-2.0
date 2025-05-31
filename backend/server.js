@@ -79,6 +79,9 @@ io.on('connection', socket => {
             const prompt = message.replace('@ai', '');
 
             const result = await generateResult(prompt);
+            console.log("ai response on server", result);
+
+            
 
 
             io.to(socket.roomId).emit('project-message', {
