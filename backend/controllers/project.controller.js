@@ -5,7 +5,6 @@ import { validationResult } from 'express-validator';
 
 
 export const createProject = async (req, res) => {
-
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -13,22 +12,32 @@ export const createProject = async (req, res) => {
     }
 
     try {
-
         const { name } = req.body;
+        
+        if (!req.user || !req.user.email) {
+            return res.status(401).json({ error: 'User not authenticated' });
+        }
+
         const loggedInUser = await userModel.findOne({ email: req.user.email });
+        
+        if (!loggedInUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
         const userId = loggedInUser._id;
+        console.log('Creating project with:', { name, userId });
 
         const newProject = await projectService.createProject({ name, userId });
+        console.log('Project created successfully:', newProject);
 
         res.status(201).json(newProject);
-
     } catch (err) {
-        console.log(err);
-        res.status(400).send(err.message);
+        console.error('Error creating project:', err);
+        res.status(400).json({ 
+            error: err.message || 'Failed to create project',
+            // details: process.env.NODE_ENV === 'development' ? err.stack : undefined
+        });
     }
-
-
-
 }
 
 export const getAllProject = async (req, res) => {

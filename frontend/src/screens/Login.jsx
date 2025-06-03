@@ -32,6 +32,10 @@ const Login = () => {
         })
     }
 
+    const handleGoogleLogin = () => {
+        window.location.href = `${import.meta.env.VITE_API_URL}/users/auth/google`;
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900">
             <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -62,9 +66,17 @@ const Login = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full p-3 rounded bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-3 rounded bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
                     >
                         Login
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleGoogleLogin}
+                        className="w-full p-3 rounded bg-white text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 flex items-center justify-center gap-2"
+                    >
+                        <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
+                        Sign in with Google
                     </button>
                 </form>
                 <p className="text-gray-400 mt-4">

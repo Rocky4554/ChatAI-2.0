@@ -113,3 +113,22 @@ export const getAllUsersController = async (req, res) => {
 
     }
 }
+
+export const googleAuthCallback = (req, res) => {
+    try {
+        if (!req.user) {
+            return res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5173'}/login?error=Google authentication failed`);
+        }
+
+        const { user, token } = req.user;
+        
+        // URL encode the user object to prevent issues with special characters
+        const encodedUser = encodeURIComponent(JSON.stringify(user));
+        const redirectUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/auth-callback?token=${token}&user=${encodedUser}`;
+        
+        res.redirect(redirectUrl);
+    } catch (error) {
+        console.error('Google Auth Callback Error:', error);
+        res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5173'}/login?error=Authentication failed`);
+    }
+};

@@ -8,6 +8,7 @@ const Register = lazy(() => import('../screens/Register'))
 const Home = lazy(() => import('../screens/Home'))
 const Project = lazy(() => import('../screens/Project'))
 const LandingPage = lazy(() => import('../screens/landingpage.jsx'))
+const AuthCallback = lazy(() => import('../screens/AuthCallback'))
 
 // Loading component
 const Loading = () => (
@@ -31,7 +32,8 @@ const AppRoutes = () => {
                     <Route path="/home" element={<UserAuth><Home /></UserAuth>} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/project" element={<UserAuth><Project /></UserAuth>} />                             
+                    <Route path="/project" element={<UserAuth><Project /></UserAuth>} />
+                    <Route path="/auth-callback" element={<AuthCallback />} />
                 </Routes>
             </Suspense>
         </BrowserRouter>
